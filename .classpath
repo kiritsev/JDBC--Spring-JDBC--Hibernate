@@ -3,5 +3,13 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdbc/classes12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring3"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/spring3/spring-framework-3.1.0.M2/projects/spring-build/lib/ivy/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-dbcp-1.4-bin/commons-dbcp-1.4/commons-dbcp-1.4-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-dbcp-1.4-bin/commons-dbcp-1.4/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-dbcp-1.4-bin/commons-dbcp-1.4/commons-dbcp-1.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-pool-1.5.6/commons-pool-1.5.6-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-pool-1.5.6/commons-pool-1.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/commons-pool-1.5.6/commons-pool-1.5.6-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

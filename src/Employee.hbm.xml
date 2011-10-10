@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04.10.2011 10:43:34 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="Hibernate.Employee" table="EMP">
+        <id name="EMPNO" type="java.lang.Long">
+            <column name="EMPNO" />
+            <generator class="assigned" />
+        </id>
+        <property name="ENAME" type="java.lang.String">
+            <column name="ENAME" />
+        </property>
+        <property name="JOB" type="java.lang.String">
+            <column name="JOB" />
+        </property>
+        <property name="MGR" type="java.lang.Long">
+            <column name="MGR" />
+        </property>
+        <property name="HIREDATE" type="java.util.Date">
+            <column name="HIREDATE" />
+        </property>
+        <property name="SAL" type="java.lang.Long">
+            <column name="SAL" />
+        </property>
+        <property name="COMM" type="java.lang.Long">
+            <column name="COMM" />
+        </property>
+        <property name="DEPTNO" type="java.lang.Long">
+            <column name="DEPTNO" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,58 +1,68 @@
 package springjdbc;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 
-@SuppressWarnings("deprecation")
 public class EmployeeDao {
 
 	private JdbcTemplate jdbcTemplate;
+	private String tableName;
+	private SqlRowSetPrinter sqlRowSetPrinter;
 
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public void showTable() throws SQLException {
-		SqlRowSet rs = this.jdbcTemplate.queryForRowSet("SELECT * FROM EMP");
-		printResultSet(rs);
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 
-	private void printResultSet(SqlRowSet rs) throws SQLException {
-		printResultSetHeader(rs);
-		printResultSetBody(rs);
+	public void setSqlRowSetPrinter(SqlRowSetPrinter sqlRowSetPrinter) {
+		this.sqlRowSetPrinter = sqlRowSetPrinter;
 	}
 
-	private void printResultSetBody(SqlRowSet rs) throws SQLException {
-		SqlRowSetMetaData md = rs.getMetaData(); // getMetaData();
-		int columnCount = md.getColumnCount();
-		int i;
+	public void insertEmployee(Employee emp) {
+		String query = " INSERT INTO " + this.tableName + " ";
+		query += " ( EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO ) "
+				+ " VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?) ";
 
-		while (rs.next()) {
-			for (i = 1; i <= columnCount; i++) {
-				System.out.print(rs.getString(i) + "\t\t");
-			}
-			System.out.println();
-		}
+		this.jdbcTemplate.update(query, emp.getEmpNo(), emp.geteName(),
+				emp.getJob(), emp.getMgr(), emp.getHireDate(), emp.getSal(),
+				emp.getComm(), emp.getDeptNo());
 	}
 
-	private void printResultSetHeader(SqlRowSet rs) throws SQLException {
-		SqlRowSetMetaData md = rs.getMetaData();
-		int columnCount = md.getColumnCount();
-		int i;
-
-		for (i = 1; i <= columnCount; i++) {
-			System.out.print(md.getColumnName(i) + "\t\t");
-		}
-		System.out.println();
+	public SqlRowSet selectAllEmployees() {
+		String query = "SELECT * FROM " + this.tableName;
+		SqlRowSet rs = this.jdbcTemplate.queryForRowSet(query);
+		return rs;
 	}
+
+	public void updateEmployee(Employee emp) {
+		String query = "UPDATE " + this.tableName + " ";
+		query += " SET ENAME = ?, JOB = ?, MGR = ?, "
+				+ " HIREDATE = ?, SAL = ?, COMM = ?, DEPTNO = ? "
+				+ " WHERE EMPNO = ?";
+
+		this.jdbcTemplate.update(query, emp.geteName(), emp.getJob(),
+				emp.getMgr(), emp.getHireDate(), emp.getSal(), emp.getComm(),
+				emp.getDeptNo(), emp.getEmpNo());
+	}
+
+	public void deleteEmployee(Employee emp) {
+		String query = " DELETE FROM " + this.tableName + " ";
+		query += " WHERE EMPNO = ? ";
+
+		this.jdbcTemplate.update(query, emp.getEmpNo());
+	}
+
+	public void showResult(SqlRowSet rs) {
+		sqlRowSetPrinter.print(rs);
+	}
+
+	public SqlRowSet query(String query, Object[] objects) {
+		return this.jdbcTemplate.queryForRowSet(query, objects);
+	}
+
 }

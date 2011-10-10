@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdbc/classes12.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring3"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdbc/classes12.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/spring3/spring-framework-3.1.0.M2/projects/spring-build/lib/ivy/commons-logging.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-dbcp-1.4-bin/commons-dbcp-1.4/commons-dbcp-1.4-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-dbcp-1.4-bin/commons-dbcp-1.4/commons-dbcp-1.4.jar"/>
@@ -11,5 +14,11 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-pool-1.5.6/commons-pool-1.5.6-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-pool-1.5.6/commons-pool-1.5.6.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-pool-1.5.6/commons-pool-1.5.6-javadoc.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/slf4j-1.6.1/slf4j-simple-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/slf4j-1.6.1/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/hibernate-distribution-3.6.7.Final/lib/required/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring3_"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/javax.persistence.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

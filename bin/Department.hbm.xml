@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 06.10.2011 11:52:58 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="Hibernate.Department" table="DEPT">
+        <id name="DEPTNO" type="java.lang.Long">
+            <column name="DEPTNO" />
+            <generator class="assigned" />
+        </id>
+        <property name="DNAME" type="java.lang.String">
+            <column name="DNAME" />
+        </property>
+        <property name="LOC" type="java.lang.String">
+            <column name="LOC" />
+        </property>
+        
+	    <set name="EMPLOYEES" lazy="false">
+	      <key column="DEPTNO"/>
+	      <one-to-many class="Hibernate.Employee"/>
+	    </set>
+        
+    </class>
+</hibernate-mapping>

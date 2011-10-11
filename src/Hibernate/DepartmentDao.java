@@ -8,124 +8,50 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 
-public class DepartmentDao {
+import org.springframework.transaction.annotation.Transactional;
 
-	private static SessionFactory sessionFactory;
-	// public final static Logger LOG = Logger.getAnonymousLogger();
+//@Transactional
+public class DepartmentDao implements DepartmentDaoInterface {
 
-	static {
-		try {
-			 sessionFactory = new Configuration().configure()
-			 .buildSessionFactory();
+	private SessionFactory sessionFactory;
 
-//			Configuration conf = new AnnotationConfiguration()
-//					.addAnnotatedClass(Employee.class)
-//					.addAnnotatedClass(Department.class).configure();
-//			sessionFactory = conf.buildSessionFactory();
-		} catch (Throwable ex) {
-			System.err.println("Initial SessionFactory creation failed." + ex);
-			throw new ExceptionInInitializerError(ex);
-		}
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	public boolean insertDepartment(Department dpt) {
-		Session session = null;
-		boolean executedSuccessful = false;
-		try {
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			session.save(dpt);
-			session.getTransaction().commit();
-			executedSuccessful = true;
-		} catch (Exception e) {
-			session.getTransaction().rollback();
-			System.out.println("Insert error: " + e.getCause().getMessage());
-			executedSuccessful = false;
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
+		if( null == sessionFactory.getCurrentSession().get(Department.class, dpt.getDEPTNO()) ) {
+			sessionFactory.getCurrentSession().save(dpt);
+			return true;
 		}
-		return executedSuccessful;
+		return false;	
 	}
 
-	public boolean updateDepartment(Department dpt) {
-		Session session = null;
-		boolean executedSuccessful = false;
-		try {
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			session.update(dpt);
-			session.getTransaction().commit();
-			executedSuccessful = true;
-		} catch (Exception e) {
-			session.getTransaction().rollback();
-			System.out.println("Update error: " + e.getCause().getMessage());
-			executedSuccessful = false;
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
-		}
-		return executedSuccessful;
+	public void updateDepartment(Department dpt) {
+		sessionFactory.getCurrentSession().update(dpt);
 	}
 
 	public Department getDepartment(Long dpt_id) {
-		Session session = null;
-		Department dpt = null;
-		try {
-			session = sessionFactory.openSession();
-			dpt = (Department) session.get(Department.class, dpt_id);
-		} catch (Exception e) {
-			System.out.println("Get error: " + e.getCause().getMessage());
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
-		}
+		Department dpt = (Department) sessionFactory.getCurrentSession().get(Department.class, dpt_id);
 		return dpt;
 	}
 
 	public Set<Employee> getDepartmentEmployees(Long dpt_id) {
-		Session session = null;
 		Department dpt = null;
 		Set<Employee> emps = null;
-		try {
-			session = sessionFactory.openSession();
-			dpt = (Department) session.get(Department.class, dpt_id);
+		dpt = (Department) sessionFactory.getCurrentSession().get(Department.class, dpt_id);
+		if( dpt != null ) {
 			emps = dpt.getEMPLOYEES();
-		} catch (Exception e) {
-			System.out.println("Get error: " + e.getCause().getMessage());
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
 		}
+
 		return emps;
 	}
 
-	public boolean deleteDepartment(Long dpt_id) {
-		Session session = null;
-		Department dpt = null;
-		boolean executedSuccessful = false;
-		try {
-			session = sessionFactory.openSession();
-			dpt = getDepartment(dpt_id);
-			session.beginTransaction();
-			if (dpt != null) {
-				session.delete(dpt);
-			}
-			session.getTransaction().commit();
-			executedSuccessful = true;
-		} catch (Exception e) {
-			System.out.println("Delete error: " + e.getMessage());
-			executedSuccessful = false;
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
+	public void deleteDepartment(Long dpt_id) {
+		Department dpt = getDepartment(dpt_id);
+		if ( dpt != null ) {
+			sessionFactory.getCurrentSession().delete(dpt);
 		}
-		return executedSuccessful;
 	}
 
 }

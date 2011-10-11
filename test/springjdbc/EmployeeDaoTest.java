@@ -86,7 +86,6 @@ public class EmployeeDaoTest {
 	@After
 	public void finalize() {
 		try {
-			System.out.println("DROP");
 			employeeDaoBean.query("DROP TABLE " + this.tmpTableName, null);
 		} catch (Exception e) {
 

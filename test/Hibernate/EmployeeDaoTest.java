@@ -9,14 +9,21 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class EmployeeDaoTest {
 
-	EmployeeDao empDao;
+	EmployeeDaoInterface empDao;
 
 	@Before
 	public void initialize() {
-		this.empDao = new EmployeeDao();
+		//this.empDao = new EmployeeDao();
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				new String[] { "HibernateDaoBeans.xml" } );
+
+		this.empDao = (EmployeeDaoInterface) context.getBean("employeeDao");
+
 	}
 
 	@Test
@@ -31,18 +38,22 @@ public class EmployeeDaoTest {
 		newEmp.setCOMM(123L);
 		newEmp.setDEPTNO(20L);
 
-		empDao.insertEmployee(newEmp);
+		assertTrue( empDao.insertEmployee(newEmp) );
 	}
 
 	@Test
-	public void select_records() throws SQLException {
+	public void select_records() throws Exception {
 		Long emp_id = 8888L;
-
-		Employee emp = empDao.getEmployee(emp_id);
-
-		if (emp != null) {
-			assertThat(emp_id, is(emp.getEMPNO()));
+		try {
+			Employee emp = empDao.getEmployee(emp_id);
+			
+			if (emp != null) {
+				assertThat(emp_id, is(emp.getEMPNO()));
+			}			
+		} catch (Exception e) {
+			fail();
 		}
+		
 	}
 
 	@Test
@@ -57,13 +68,16 @@ public class EmployeeDaoTest {
 		newEmp.setCOMM(123L);
 		newEmp.setDEPTNO(20L);
 
-		assertTrue(empDao.updateEmployee(newEmp));
+		empDao.updateEmployee(newEmp);
 	}
 
 	@Test
 	public void delete_record() {
 		Long emp_id = 8888L;
-
-		assertTrue(empDao.deleteEmployee(emp_id));
+		try {
+			empDao.deleteEmployee(emp_id);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 }

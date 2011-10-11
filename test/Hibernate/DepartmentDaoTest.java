@@ -10,14 +10,19 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DepartmentDaoTest {
 
-	DepartmentDao dptDao;
+	DepartmentDaoInterface dptDao;
 
 	@Before
 	public void initialize() {
-		this.dptDao = new DepartmentDao();
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				new String[] { "HibernateDaoBeans.xml" } );
+
+		this.dptDao = (DepartmentDaoInterface) context.getBean("departmentDao");		
 	}
 
 	@Test
@@ -26,18 +31,21 @@ public class DepartmentDaoTest {
 		newDpt.setDEPTNO(30L);
 		newDpt.setDNAME("Major");
 		newDpt.setLOC("Moscow");
-		dptDao.insertDepartment(newDpt);
+		assertTrue( dptDao.insertDepartment(newDpt) );
 	}
 
 	@Test
 	public void select_records() throws SQLException {
 		Long dpt_id = 30L;
+		try {
+			Department dpt = dptDao.getDepartment(dpt_id);
 
-		Department dpt = dptDao.getDepartment(dpt_id);
-
-		if (dpt != null) {
-			assertThat(dpt_id, is(dpt.getDEPTNO()));
-		}
+			if (dpt != null) {
+				assertThat(dpt_id, is(dpt.getDEPTNO()));
+			}			
+		} catch (Exception e) {
+			fail();
+		}		
 	}
 
 	@Test
@@ -47,14 +55,17 @@ public class DepartmentDaoTest {
 		newDpt.setDNAME("Major");
 		newDpt.setLOC("Moscow");
 
-		assertTrue(dptDao.updateDepartment(newDpt));
+		dptDao.updateDepartment(newDpt);
 	}
 
 	@Test
-	public void delete_record() {
-		Long dpt_id = 8888L;
-
-		assertTrue(dptDao.deleteDepartment(dpt_id));
+	public void delete_record() throws Exception {
+		Long dpt_id = 30L;
+		try {
+			dptDao.deleteDepartment(dpt_id);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	@Test
@@ -64,11 +75,12 @@ public class DepartmentDaoTest {
 		Set<Employee> emps = dptDao.getDepartmentEmployees(dpt_id);
 		if (emps != null) {
 			System.out.println("DPT: " + emps.size());
-		}
-		Iterator<Employee> it = emps.iterator();
-		if (it.hasNext()) {
-			Employee emp = it.next();
-			assertThat(dpt_id, is(emp.getDEPTNO()));
+
+			Iterator<Employee> it = emps.iterator();
+			if (it.hasNext()) {
+				Employee emp = it.next();
+				assertThat(dpt_id, is(emp.getDEPTNO()));
+			}
 		}
 	}
 }

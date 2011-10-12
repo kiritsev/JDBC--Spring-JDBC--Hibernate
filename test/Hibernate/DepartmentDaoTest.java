@@ -8,22 +8,36 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/HibernateDaoBeans.xml" })
+@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
+@Transactional
 public class DepartmentDaoTest {
 
+	@Autowired
 	DepartmentDaoInterface dptDao;
-
-	@Before
-	public void initialize() {
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[] { "HibernateDaoBeans.xml" } );
-
-		this.dptDao = (DepartmentDaoInterface) context.getBean("departmentDao");		
-	}
+	
+	public static final Logger LOG=Logger.getLogger(DepartmentDaoTest.class);
+	
+//	@Before
+//	public void initialize() {
+//		ApplicationContext context = new ClassPathXmlApplicationContext(
+//				new String[] { "HibernateDaoBeans.xml" } );
+//
+//		this.dptDao = (DepartmentDaoInterface) context.getBean("departmentDao");		
+//	}
 
 	@Test
 	public void insert_record() {
@@ -70,12 +84,13 @@ public class DepartmentDaoTest {
 
 	@Test
 	public void select_record_and_related_records() {
-		Long dpt_id = 30L;
+		Long dpt_id = 11L;
 
 		Set<Employee> emps = dptDao.getDepartmentEmployees(dpt_id);
 		if (emps != null) {
-			System.out.println("DPT: " + emps.size());
 
+			LOG.debug("Departments count: " + emps.size());
+			
 			Iterator<Employee> it = emps.iterator();
 			if (it.hasNext()) {
 				Employee emp = it.next();

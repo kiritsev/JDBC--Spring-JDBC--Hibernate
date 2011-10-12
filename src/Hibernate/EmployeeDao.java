@@ -2,9 +2,9 @@ package Hibernate;
 
 import org.hibernate.SessionFactory;
 
-//import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
-//@Transactional
+@Transactional
 public class EmployeeDao implements EmployeeDaoInterface {
 
 	private SessionFactory sessionFactory;

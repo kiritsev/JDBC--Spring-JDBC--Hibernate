@@ -15,29 +15,29 @@
      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<!-- VARIANT 1 - "Pure XML usage (tx:advice and aop:config)" -->
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<!-- all methods starting with 'get' are read-only -->
-			<tx:method name="get*" read-only="true" />
-			<!-- other methods use the default transaction settings -->
-			<tx:method name="*" />
-		</tx:attributes>
-	</tx:advice>
+<!-- 	<tx:advice id="txAdvice" transaction-manager="txManager"> -->
+<!-- 		<tx:attributes> -->
+<!-- 			all methods starting with 'get' are read-only -->
+<!-- 			<tx:method name="get*" read-only="true" /> -->
+<!-- 			other methods use the default transaction settings -->
+<!-- 			<tx:method name="*" /> -->
+<!-- 		</tx:attributes> -->
+<!-- 	</tx:advice> -->
 
-	<aop:config>
-		<aop:pointcut id="employeeOperations"
-			expression="execution(* Hibernate.EmployeeDaoInterface.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="employeeOperations" />
-	</aop:config>
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut id="employeeOperations" -->
+<!-- 			expression="execution(* Hibernate.EmployeeDaoInterface.*(..))" /> -->
+<!-- 		<aop:advisor advice-ref="txAdvice" pointcut-ref="employeeOperations" /> -->
+<!-- 	</aop:config> -->
 	
-	<aop:config>
-		<aop:pointcut id="departmentOperations"
-			expression="execution(* Hibernate.DepartmentDaoInterface.*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="departmentOperations" />
-	</aop:config>
+<!-- 	<aop:config> -->
+<!-- 		<aop:pointcut id="departmentOperations" -->
+<!-- 			expression="execution(* Hibernate.DepartmentDaoInterface.*(..))" /> -->
+<!-- 		<aop:advisor advice-ref="txAdvice" pointcut-ref="departmentOperations" /> -->
+<!-- 	</aop:config> -->
 
 	<!-- VARIANT 2 - "Annotations usage" -->
-<!-- 	<tx:annotation-driven transaction-manager="txManager"/> -->
+	<tx:annotation-driven transaction-manager="txManager"/>
 
 	<context:property-placeholder location="jdbc.properties" />
 
@@ -63,7 +63,7 @@
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configurationClass">
-			<value>org.hibernate.cfg.Configuration</value>
+			<value>org.hibernate.cfg.AnnotationConfiguration</value>
 		</property>		
 		<property name="mappingResources">
 			<list>

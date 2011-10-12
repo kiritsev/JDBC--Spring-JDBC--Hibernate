@@ -20,7 +20,9 @@
 	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/hibernate-distribution-3.6.7.Final/lib/required/javassist-3.12.0.GA.jar"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/javax.persistence.jar"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/spring-aop-2.0-m4.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/cglib2.jar"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/protoj-exe-jdk6-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/spring-test-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/cglib-2.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/kiritsev/Рабочий стол/distribs/asm-3.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

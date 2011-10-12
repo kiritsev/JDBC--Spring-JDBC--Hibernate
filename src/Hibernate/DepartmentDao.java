@@ -10,7 +10,7 @@ import org.hibernate.cfg.Configuration;
 
 import org.springframework.transaction.annotation.Transactional;
 
-//@Transactional
+@Transactional
 public class DepartmentDao implements DepartmentDaoInterface {
 
 	private SessionFactory sessionFactory;

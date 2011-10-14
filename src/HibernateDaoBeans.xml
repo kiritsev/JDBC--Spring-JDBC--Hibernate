@@ -37,7 +37,7 @@
 <!-- 	</aop:config> -->
 
 	<!-- VARIANT 2 - "Annotations usage" -->
-	<tx:annotation-driven transaction-manager="txManager"/>
+<!-- 	<tx:annotation-driven transaction-manager="txManager"/> -->
 
 	<context:property-placeholder location="jdbc.properties" />
 
@@ -59,18 +59,29 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
+<!-- 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configurationClass">
 			<value>org.hibernate.cfg.AnnotationConfiguration</value>
 		</property>		
-		<property name="mappingResources">
-			<list>
-				<value>Employee.hbm.xml</value>
-				<value>Department.hbm.xml</value>
-			</list>
-		</property>
+<!--		Pure XML -->
+<!-- 		<property name="mappingResources"> -->
+<!-- 			<list> -->
+<!-- 				<value>Employee.hbm.xml</value> -->
+<!-- 				<value>Department.hbm.xml</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+
+<!-- Annotations usage -->
+	    <property name="annotatedClasses">
+	      <list>
+	        <value>Hibernate.Employee</value>
+	        <value>Hibernate.Department</value>
+	      </list>
+	    </property>
+
 		<property name="hibernateProperties">		
 			<value>
 				hibernate.show_sql=true

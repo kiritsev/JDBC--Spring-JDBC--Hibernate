@@ -29,13 +29,6 @@ public class EmployeeDaoTest {
 	@Autowired
 	EmployeeDaoInterface empDao;
 
-//	@Before
-//	public void initialize() {
-//		ApplicationContext context = new ClassPathXmlApplicationContext(
-//				new String[] { "HibernateDaoBeans.xml" });
-//		this.empDao = (EmployeeDaoInterface) context.getBean("employeeDao");
-//	}
-
 	@Test
 	public void insert_record() {
 		Employee newEmp = new Employee();

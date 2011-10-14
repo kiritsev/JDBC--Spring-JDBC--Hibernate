@@ -30,14 +30,6 @@ public class DepartmentDaoTest {
 	DepartmentDaoInterface dptDao;
 	
 	public static final Logger LOG=Logger.getLogger(DepartmentDaoTest.class);
-	
-//	@Before
-//	public void initialize() {
-//		ApplicationContext context = new ClassPathXmlApplicationContext(
-//				new String[] { "HibernateDaoBeans.xml" } );
-//
-//		this.dptDao = (DepartmentDaoInterface) context.getBean("departmentDao");		
-//	}
 
 	@Test
 	public void insert_record() {

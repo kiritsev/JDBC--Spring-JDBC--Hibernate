@@ -2,14 +2,14 @@ package Hibernate;
 
 import java.util.Date;
 
-//import javax.persistence.Id;
-//import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.*;
 
-//@Entity
-//@Table(name = "EMP")
+@Entity
+@Table(name = "EMP")
 public class Employee {
 
-	//@Id
+	@Id
 	private Long EMPNO;
 	private String ENAME;
 	private String JOB;

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	 xmlns:context="http://www.springframework.org/schema/context"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xmlns:aop="http://www.springframework.org/schema/aop"
      xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="
      http://www.springframework.org/schema/context
-     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd
      http://www.springframework.org/schema/beans 
-     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
      http://www.springframework.org/schema/tx
-     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
      http://www.springframework.org/schema/aop 
-     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
 	<!-- VARIANT 1 - "Pure XML usage (tx:advice and aop:config)" -->
 <!-- 	<tx:advice id="txAdvice" transaction-manager="txManager"> -->
@@ -37,10 +37,11 @@
 <!-- 	</aop:config> -->
 
 	<!-- VARIANT 2 - "Annotations usage" -->
-<!-- 	<tx:annotation-driven transaction-manager="txManager"/> -->
+	<tx:annotation-driven transaction-manager="txManager"/>
 
-	<context:property-placeholder location="jdbc.properties" />
-
+	<bean id="employeeService" class="service.EmployeeService">
+		<property name="employeeDao" ref="employeeDao" />
+	</bean>
 	<bean id="employeeDao" class="Hibernate.EmployeeDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
@@ -58,7 +59,8 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
+	<context:property-placeholder location="jdbc.properties" />
+	
 <!-- 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">

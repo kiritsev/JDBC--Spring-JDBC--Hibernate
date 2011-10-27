@@ -46,17 +46,21 @@ public class EmployeeDaoTest {
 
 	@Test
 	public void select_records() throws Exception {
-		Long emp_id = 8888L;
+		Long empId = 8888L;
+		String empName = "Josh";
+		
+		Employee newEmp = new Employee();
+		newEmp.setEMPNO(empId);
+		newEmp.setENAME(empName);
+		assertTrue(empDao.insertEmployee(newEmp));
+		
 		try {
-			Employee emp = empDao.getEmployee(emp_id);
-
-			if (emp != null) {
-				assertThat(emp_id, is(emp.getEMPNO()));
-			}
+			Employee emp = empDao.getEmployee(empId);
+			assertThat(empId, is(emp.getEMPNO()));
+			assertThat(empName, is(emp.getENAME()));			
 		} catch (Exception e) {
 			fail();
 		}
-
 	}
 
 	@Test

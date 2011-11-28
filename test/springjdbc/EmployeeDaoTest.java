@@ -35,6 +35,7 @@ public class EmployeeDaoTest {
 					+ " AS ( SELECT * FROM " + srcTableName + " WHERE 1=2 )",
 					null);
 		} catch (Exception e) {
+			
 		}
 
 		employeeDaoBean.setTableName(tmpTableName);

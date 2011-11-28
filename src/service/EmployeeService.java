@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import Hibernate.Employee;
 import Hibernate.EmployeeDaoInterface;
 
-//@Transactional(rollbackFor=Exception.class)
 public class EmployeeService implements EmployeeServiceInteface{
 	
 	EmployeeDaoInterface employeeDao;
@@ -26,14 +25,21 @@ public class EmployeeService implements EmployeeServiceInteface{
 	}
 	
 	@Override
-	@Transactional
-	public void insert( Employee newEmp ) throws Exception {
-//		System.out.println("TRANSACTIOIN:" +
-//				org.springframework.transaction.support.
-//				TransactionSynchronizationManager.isActualTransactionActive());
-		employeeDao.insertEmployee(newEmp);
-		System.out.println("thtow Stoppage");
-		//throw new RuntimeException("Stoppage");
+	public void insert_two_guys() throws Exception {
+
+		Employee newEmp1 = new Employee();
+		newEmp1.setEMPNO(111L);
+		newEmp1.setENAME("Josh");
+		
+		Employee newEmp2 = new Employee();
+		newEmp2.setEMPNO(222L);
+		newEmp2.setENAME("Jon");
+		
+		employeeDao.insertEmployee(newEmp1);
+		employeeDao.insertEmployee(newEmp2);
+		
+		System.out.println("Throw stoppage here");
+		//throw new RuntimeException("Let's rollback");
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -44,16 +50,11 @@ public class EmployeeService implements EmployeeServiceInteface{
 		
 		System.out.println("Insert begin");
 
-		Long empId = 8882L;
-		String empName = "Josh";
-		Employee newEmp = new Employee();
-		newEmp.setEMPNO(empId);
-		newEmp.setENAME(empName);
 		
 		try {
-			service.insert(newEmp);
+			service.insert_two_guys();
 		} catch (Exception e) {
-			System.out.println("Badness:" + e.getMessage());
+			System.out.println("Badness happened: 	" + e.getMessage());
 		}
 		
 		System.out.println("Insert end");

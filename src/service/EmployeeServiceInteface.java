@@ -7,6 +7,6 @@ import Hibernate.Employee;
 public interface EmployeeServiceInteface {
 
 	@Transactional
-	public abstract void insert(Employee newEmp) throws Exception;
+	void insert_two_guys() throws Exception;
 
 }

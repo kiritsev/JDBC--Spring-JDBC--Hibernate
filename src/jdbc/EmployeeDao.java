@@ -31,24 +31,6 @@ public class EmployeeDao {
 		return rs;
 	}
 
-	public static void main(String[] args) throws Exception {
-		EmployeeDao employeeDao = null;
-		ResultSet rs;
-		String url = "jdbc:oracle:thin:@ora92.dfu.i-teco.ru:1521:backo";
-		String user = "scott";
-		String password = "scott";
-
-		try {
-			employeeDao = new EmployeeDao(url, user, password);
-			rs = employeeDao.makeRequest("SELECT * FROM EMP");
-			printResultSet(rs);
-		} finally {
-			if (employeeDao != null) {
-				employeeDao.disconnect();
-			}
-		}
-	}
-
 	private void connect(String url, String user, String password)
 			throws ClassNotFoundException, SQLException {
 		Class.forName(this.driver);
@@ -82,5 +64,23 @@ public class EmployeeDao {
 			System.out.print(md.getColumnName(i) + "\t\t");
 		}
 		System.out.println();
+	}
+	
+	public static void main(String[] args) throws Exception {
+		EmployeeDao employeeDao = null;
+		ResultSet rs;
+		String url = "jdbc:oracle:thin:@ora92.dfu.i-teco.ru:1521:backo";
+		String user = "scott";
+		String password = "scott";
+		
+		try {
+			employeeDao = new EmployeeDao(url, user, password);
+			rs = employeeDao.makeRequest("SELECT * FROM EMP");
+			printResultSet(rs);
+		} finally {
+			if (employeeDao != null) {
+				employeeDao.disconnect();
+			}
+		}
 	}
 }
